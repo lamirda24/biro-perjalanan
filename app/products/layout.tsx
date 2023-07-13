@@ -7,7 +7,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <div>
       <header className="border-b md:w-full h-20 flex items-center justify-start md:flex px-[20px]">
-        <Button>
+        <Button className="sm:hidden">
           <Sidebar />
         </Button>
       </header>

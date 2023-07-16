@@ -1,20 +1,20 @@
-'use client';
-import { Button, Card, CardContent, CardFooter, CardHeader } from '@/components/ui';
-import { LucideGithub, LucideLinkedin } from 'lucide-react';
-import Link from 'next/link';
+"use client";
+import { Button, Card, CardContent, CardFooter, CardHeader } from "@/components/ui";
+import { LucideGithub, LucideLinkedin } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   const profile = (idx: number) => {
     switch (idx) {
       case 1:
-        window.open('https://github.com/lamirda24', '_blank');
+        window.open("https://github.com/lamirda24", "_blank");
         break;
       case 2:
-        window.open('https://github.com/luthfiAM', '_blank');
+        window.open("https://github.com/luthfiAM", "_blank");
         break;
 
       default:
-        window.open('https://www.linkedin.com/in/luthfiam/', '_blank');
+        window.open("https://www.linkedin.com/in/luthfiam/", "_blank");
         break;
     }
   };
@@ -40,7 +40,7 @@ export default function Home() {
           </div>
         </CardContent>
         <CardFooter className="justify-center">
-          <Link href={'/products'}>
+          <Link href={"/products"}>
             <Button>Proceed to /product</Button>
           </Link>
         </CardFooter>

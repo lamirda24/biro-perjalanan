@@ -1,11 +1,13 @@
-import axios from 'axios';
+"use client";
 
-const BASE_URL: string = 'https://dummyjson.com/';
+import axios from "axios";
+
+const BASE_URL: string = "https://dummyjson.com/";
 const request = axios.create({
   baseURL: BASE_URL,
   timeout: 30000,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 

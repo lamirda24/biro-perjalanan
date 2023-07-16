@@ -1,7 +1,9 @@
-import React, { ReactNode } from 'react';
-import Link from 'next/link';
-import { Button } from '@/components/ui';
-import { Sidebar } from 'lucide-react';
+"use client";
+
+import React, { ReactNode } from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui";
+import { Sidebar } from "lucide-react";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (

@@ -1,7 +1,7 @@
 "use client";
 
 import { ProductRequest, ProductResponse, fetchProduct } from "@/api";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { ProductTable } from "./_types";
 
 import { Button, Card, Input } from "@/components/ui";

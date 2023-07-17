@@ -94,7 +94,7 @@ export default function Page() {
               actionOptions={{
                 render: renderOption,
                 text: "Actions",
-                show: true,
+                show: false,
               }}
               data={data}
               headers={headers}

@@ -17,6 +17,12 @@ export default function Layout({ children }: { children: ReactNode }) {
         <aside className="border-b md:border-r border-secondary flex flex- justify-start items-start relative md:h-full">
           <div className="flex flex-col sticky top-[65px] md:w-[240px] p-4">
             <Link
+              href="/"
+              className="hover:bg-gray-800 rounded-md hover:text-[#eee] transition-all duration-300 h-[40px] flex items-center justify-start px-4"
+            >
+              <p>Home screen</p>
+            </Link>
+            <Link
               href="/products"
               className="hover:bg-gray-800 rounded-md hover:text-[#eee] transition-all duration-300 h-[40px] flex items-center justify-start px-4"
             >
@@ -24,7 +30,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             </Link>
 
             <Link
-              href="/products/cart"
+              href="/cart"
               className="hover:bg-gray-800 rounded-md hover:text-[#eee] transition-all duration-300 h-[40px] flex items-center justify-start px-4"
             >
               <p>Cart</p>

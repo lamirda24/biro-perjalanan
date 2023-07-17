@@ -1,25 +1,7 @@
 "use client";
 
 import { DoubleArrowLeftIcon, DoubleArrowRightIcon } from "@radix-ui/react-icons";
-
-import {
-  Button,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "./ui";
+import { Button, CardContent, CardFooter, CardHeader, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui";
 import { skip } from "node:test";
 
 export interface TableHeaderProps {
@@ -138,26 +120,35 @@ interface TableCardFooter {
   setPageChange?: (value: number) => void;
   setRefresh?: (value: boolean) => void;
   setCurrent?: (value: number) => void;
+  cart?: boolean;
 }
 export const TableCardFooter = (props: TableCardFooter) => {
-  const { setPageChange, setCurrent, setRefresh, refresh }: TableCardFooter = props;
+  const { setPageChange, setCurrent, setRefresh, refresh, cart }: TableCardFooter = props;
 
   const handleChangePage = (type: string) => {
     switch (type) {
       case "next":
-        if (props?.current > 0) {
-          setPageChange?.(props?.skip + +props?.show);
+        if (cart) {
           setCurrent?.(props?.current + 1);
-          setRefresh?.(!refresh);
+        } else {
+          if (props?.current > 0) {
+            setPageChange?.(props?.skip + +props?.show);
+            setCurrent?.(props?.current + 1);
+          }
         }
+        setRefresh?.(!refresh);
         break;
       default:
         if (props.current == 1) return false;
+        if (cart) {
+          setCurrent?.(props?.current - 1);
+        }
         if (props?.current <= props?.totalPage) {
           setPageChange?.(props?.skip - +props?.show);
           setCurrent?.(props?.current - 1);
           setRefresh?.(!refresh);
         }
+        setRefresh?.(!refresh);
         break;
     }
   };

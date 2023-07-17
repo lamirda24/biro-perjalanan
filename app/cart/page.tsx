@@ -1,24 +1,34 @@
 "use client";
 
-import { ProductRequest, ProductResponse, fetchProduct } from "@/api";
+import { CartData, ProductRequest, fetchCartDetail } from "@/api";
 import { useEffect, useState } from "react";
 
 import { Button, Card, Input } from "@/components/ui";
 import { TableCardFooter, TableCardHeader, TableContent as TableContentTest, TableRowContent, buildNumber } from "@/components/index";
 import { ProductTable } from "../products/_types";
+import { CartDetailTable } from "./_types";
+import UserDetail from "@/api/carts/_components/_user";
 
-function createData(id: number, productName: string, brand: string, stock: number, category: string, price: number): ProductTable {
-  return { id, productName, brand, stock, category, price };
+function createData(
+  id: number,
+  discountPercentage: number,
+  discountedPrice: number,
+  quantity: number,
+  title: string,
+  price: number,
+  total: number
+): CartDetailTable {
+  return { id, discountPercentage, discountedPrice, quantity, title, price, total };
 }
 
 export default function Page() {
-  const [data, setData] = useState<ProductTable[]>([]);
+  const [data, setData] = useState<CartDetailTable[]>([]);
   const [refresh, setRefresh] = useState<boolean>(false);
   const [limit, setLimit] = useState<number>(5);
   const [skip, setSkip] = useState<number>(0);
   const [keyword, setKeyword] = useState<string>("");
   const [current, setCurrent] = useState<number>(1);
-  const [res, setRes] = useState<ProductResponse>();
+  const [res, setRes] = useState<CartData>();
   const [totals, setTotals] = useState<number>(0);
   let params: ProductRequest = {
     limit: limit,
@@ -28,9 +38,10 @@ export default function Page() {
 
   const getProduct = async () => {
     try {
-      const res = await fetchProduct(params);
+      const res = await fetchCartDetail(current);
       setRes(res);
-      setTotals(Math.round(res?.total / res?.limit));
+
+      // setTotals(Math.round(res?.total / res?.limit));
     } catch (e) {
       console.log(e);
     }
@@ -39,16 +50,16 @@ export default function Page() {
     getProduct();
   }, [refresh, keyword]);
 
-  const headers: TableRowContent<ProductTable>[] = [
+  const headers: TableRowContent<CartDetailTable>[] = [
     {
       id: "productName",
       text: "Product Name",
-      value: "productName",
+      value: "title",
     },
     {
-      id: "brand",
-      text: "Brand",
-      value: "brand",
+      id: "quantity",
+      text: "Quantity",
+      value: "quantity",
     },
     {
       id: "price",
@@ -56,21 +67,29 @@ export default function Page() {
       value: "price",
     },
     {
-      id: "stock",
-      text: "Stock",
-      value: "stock",
+      id: "subtotal",
+      text: "Sub Total",
+      value: "total",
     },
     {
-      id: "category",
-      text: "Category",
-      value: "category",
+      id: "discountPercentage",
+      text: "Discount",
+      value: "discountPercentage",
+    },
+    {
+      id: "total",
+      text: "Total",
+      value: "discountedPrice",
     },
   ];
 
   useEffect(() => {
     setData([]);
     res?.products?.forEach((data) => {
-      setData((arr) => [...arr, createData(data?.id, data?.title, data?.brand, data?.stock, data?.category, data?.price)]);
+      setData((arr) => [
+        ...arr,
+        createData(Number(data?.id), data?.discountPercentage, data?.discountedPrice, data?.quantity, data?.title, data?.price, data?.total),
+      ]);
     });
   }, [res, refresh]);
 
@@ -83,8 +102,10 @@ export default function Page() {
 
   return (
     <div className="flex flex-col">
-      <h2 className="font-bold text-2xl">Cart</h2>
+      <h2 className="font-bold text-2xl">Cart - {current}</h2>
       <div className="pt-4">
+        Details
+        <UserDetail user={res?.id} total={res?.total} qty={res?.totalQuantity} />
         <main className="flex flex-col gap-2">
           <Card className="mt-4">
             <TableCardHeader input={<Input placeholder="Search..." name="search" onChange={(e) => setKeyword(e.target?.value)} />} />
@@ -94,12 +115,13 @@ export default function Page() {
               actionOptions={{
                 render: renderOption,
                 text: "Actions",
-                show: true,
+                show: false,
               }}
               data={data}
               headers={headers}
             />
             <TableCardFooter
+              cart={true}
               show={limit}
               current={current}
               setCurrent={setCurrent}

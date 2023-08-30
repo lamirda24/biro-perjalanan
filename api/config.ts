@@ -1,14 +1,1 @@
-"use client";
-
-import axios from "axios";
-
-const BASE_URL: string = "https://dummyjson.com/";
-const request = axios.create({
-  baseURL: BASE_URL,
-  timeout: 30000,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
-
-export { request };
+export const mainApi = process.env.NEXT_PUBLIC_MAIN_API_V1 ?? "";

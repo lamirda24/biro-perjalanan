@@ -4,28 +4,11 @@ import { DoubleArrowLeftIcon, DoubleArrowRightIcon } from "@radix-ui/react-icons
 import { Button, CardContent, CardFooter, CardHeader, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui";
 import { skip } from "node:test";
 
-export interface TableHeaderProps {
-  text?: string;
-  input?: React.ReactElement;
-  action?: React.ReactElement;
-}
-
 export interface TableActionsProps<T = any> {
   show?: boolean;
   text: string;
   render: (row: T, idx: number) => React.ReactElement;
 }
-export const TableCardHeader = (props: TableHeaderProps) => {
-  return (
-    <CardHeader className="flex flex-row items-center justify-between">
-      <h2 className="flex-1 text-xl font-semibold">{props?.text}</h2>
-      <div className="flex w-[60%] flex-row items-center justify-end gap-2">
-        <div className="w-[40%]">{props?.input}</div>
-        <>{props?.action}</>
-      </div>
-    </CardHeader>
-  );
-};
 interface TableNumbering<T = any> {
   // show number column when value is true
   show?: boolean;
@@ -46,7 +29,7 @@ interface TableContentProps<T = any> {
 enum TableSortEnum {
   notSet = "",
   asc = "asc",
-  desc = "desc",
+  desc = "desc"
 }
 export interface TableRowContent<T = any> {
   id: string;
@@ -115,7 +98,7 @@ interface TableCardFooter {
   // showItems?: number[]
   show: number;
   refresh?: boolean;
-  skip: number;
+
   onShowChange?: (value: string) => void;
   setPageChange?: (value: number) => void;
   setRefresh?: (value: boolean) => void;
@@ -132,7 +115,6 @@ export const TableCardFooter = (props: TableCardFooter) => {
           setCurrent?.(props?.current + 1);
         } else {
           if (props?.current > 0) {
-            setPageChange?.(props?.skip + +props?.show);
             setCurrent?.(props?.current + 1);
           }
         }
@@ -144,7 +126,6 @@ export const TableCardFooter = (props: TableCardFooter) => {
           setCurrent?.(props?.current - 1);
         }
         if (props?.current <= props?.totalPage) {
-          setPageChange?.(props?.skip - +props?.show);
           setCurrent?.(props?.current - 1);
           setRefresh?.(!refresh);
         }

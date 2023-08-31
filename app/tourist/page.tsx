@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { Button, Card } from "@/components/ui";
-import { TableCardFooter, TableContent as TableContentTourist, TableRowContent, buildNumber } from "@/components/index";
-import { TouristTable } from "./_types";
-import { TouristListResponse, getTouristList } from "@/api/tourist";
-import { useRouter } from "next/navigation";
+import { Button, Card } from '@/components/ui';
+import { TableCardFooter, TableCardHeader, TableContent as TableContentTourist, TableRowContent, buildNumber } from '@/components/index';
+import { TouristTable } from './_types';
+import { TouristListResponse, getTouristList } from '@/api/tourist';
+import { useRouter } from 'next/navigation';
 
 function createData(name: string, email: string, id: string, location: string): TouristTable {
   return { name, email, id, location };
@@ -28,7 +28,7 @@ export default function Page() {
     } catch (e: any) {
       if (e.response.status) {
         localStorage.clear();
-        router.push("/");
+        router.push('/');
       }
       throw e;
     }
@@ -39,20 +39,20 @@ export default function Page() {
 
   const headers: TableRowContent<TouristTable>[] = [
     {
-      id: "name",
-      text: "Name",
-      value: "name"
+      id: 'name',
+      text: 'Name',
+      value: 'name'
     },
 
     {
-      id: "email",
-      text: "Email",
-      value: "email"
+      id: 'email',
+      text: 'Email',
+      value: 'email'
     },
     {
-      id: "location",
-      text: "Locations",
-      value: "location"
+      id: 'location',
+      text: 'Locations',
+      value: 'location'
     }
   ];
 
@@ -77,12 +77,13 @@ export default function Page() {
       <div className="pt-4">
         <div className="flex flex-col gap-2">
           <Card className="mt-4">
+            <TableCardHeader action={<Button>Create Data</Button>} />
             <TableContentTourist
               identityKey="id"
-              numberOptions={{ render: renderNumber, text: "#", show: true }}
+              numberOptions={{ render: renderNumber, text: '#', show: true }}
               actionOptions={{
                 render: renderOption,
-                text: "Actions",
+                text: 'Actions',
                 show: true
               }}
               data={data}

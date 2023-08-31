@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { DoubleArrowLeftIcon, DoubleArrowRightIcon } from "@radix-ui/react-icons";
-import { Button, CardContent, CardFooter, CardHeader, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui";
-import { skip } from "node:test";
+import { DoubleArrowLeftIcon, DoubleArrowRightIcon } from '@radix-ui/react-icons';
+import { Button, CardContent, CardFooter, CardHeader, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui';
+import { skip } from 'node:test';
 
 export interface TableActionsProps<T = any> {
   show?: boolean;
@@ -27,9 +27,9 @@ interface TableContentProps<T = any> {
 }
 
 enum TableSortEnum {
-  notSet = "",
-  asc = "asc",
-  desc = "desc"
+  notSet = '',
+  asc = 'asc',
+  desc = 'desc'
 }
 export interface TableRowContent<T = any> {
   id: string;
@@ -39,9 +39,9 @@ export interface TableRowContent<T = any> {
 }
 
 export const TableContent = (props: TableContentProps) => {
-  const isShowNumber = typeof props?.numberOptions?.show == "boolean" && props?.numberOptions?.show;
+  const isShowNumber = typeof props?.numberOptions?.show == 'boolean' && props?.numberOptions?.show;
 
-  const isShowAction = typeof props?.actionOptions?.show == "boolean" && props?.actionOptions?.show;
+  const isShowAction = typeof props?.actionOptions?.show == 'boolean' && props?.actionOptions?.show;
 
   return (
     <CardContent>
@@ -53,7 +53,7 @@ export const TableContent = (props: TableContentProps) => {
               <TableHead
                 onClick={() => console.log(header?.id)}
                 className="cursor-pointer"
-                key={`${header.text}-${header.text}-${header.sort || ""}`}
+                key={`${header.text}-${header.text}-${header.sort || ''}`}
               >
                 {header?.text}
               </TableHead>
@@ -76,7 +76,7 @@ export const TableContent = (props: TableContentProps) => {
                   //   props.onClickRow && props.onClickRow(row, rowNumber)
                   // }
                 >
-                  {typeof header.value == "function" ? header.value(row, rowNumber) : row[header.value]}
+                  {typeof header.value == 'function' ? header.value(row, rowNumber) : row[header.value]}
                 </TableCell>
               ))}
               {isShowAction && (
@@ -110,7 +110,7 @@ export const TableCardFooter = (props: TableCardFooter) => {
 
   const handleChangePage = (type: string) => {
     switch (type) {
-      case "next":
+      case 'next':
         if (cart) {
           setCurrent?.(props?.current + 1);
         } else {
@@ -140,10 +140,10 @@ export const TableCardFooter = (props: TableCardFooter) => {
           {props?.current} - {props?.totalPage} of {props?.totalPage} entries
         </p>
         <div className="flex flex-row items-center gap-2">
-          <Button onClick={() => handleChangePage("back")}>
+          <Button onClick={() => handleChangePage('back')}>
             <DoubleArrowLeftIcon />
           </Button>
-          <Button onClick={() => handleChangePage("next")}>
+          <Button onClick={() => handleChangePage('next')}>
             <DoubleArrowRightIcon />
           </Button>
         </div>
@@ -152,6 +152,28 @@ export const TableCardFooter = (props: TableCardFooter) => {
   );
 };
 
+export interface TableHeaderProps {
+  text?: string;
+  input?: React.ReactElement;
+  action?: React.ReactElement;
+}
+
+export interface TableActionsProps<T = any> {
+  show?: boolean;
+  text: string;
+  render: (row: T, idx: number) => React.ReactElement;
+}
+export const TableCardHeader = (props: TableHeaderProps) => {
+  return (
+    <CardHeader className="flex flex-row items-center justify-between">
+      <h2 className="flex-1 text-xl font-semibold">{props?.text}</h2>
+      <div className="flex w-[60%] flex-row items-center justify-end gap-2">
+        <div className="w-[40%]">{props?.input}</div>
+        <>{props?.action}</>
+      </div>
+    </CardHeader>
+  );
+};
 export const buildNumber = (
   // Assume start with index 0
   idx: number,

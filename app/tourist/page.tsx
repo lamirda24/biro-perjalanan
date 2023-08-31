@@ -27,8 +27,8 @@ export default function Page() {
       setRes(res);
     } catch (e: any) {
       if (e.response.status === 401) {
-        localStorage.clear();
         router.push('/');
+        localStorage.clear();
       }
       throw e;
     }

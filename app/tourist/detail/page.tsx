@@ -75,7 +75,7 @@ export default function DetailPage() {
             <p className="text-lg font-semibold">{data?.tourist_location}</p>
           </div>
           <div className="flex flex-row gap-2 w-full justify-end">
-            <Button variant="outline" onClick={() => router.push(`/tourist/edit/${id}`)}>
+            <Button variant="outline" onClick={() => router.push(`/tourist/edit?id=${id}`)}>
               Edit
             </Button>
             <Button variant="destructive" onClick={() => setOpen(true)}>

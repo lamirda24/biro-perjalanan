@@ -23,6 +23,11 @@ export const deleteTourist: DeleteTourist = async (id: string) => {
   return res.data;
 };
 
+export const updateTourist: UpdateTourist = async ({ id, data }) => {
+  const res = await axiosx(true).put(`${url}/${id}`, data);
+  return res.data;
+};
+
 export interface TouristsList {
   createdat: string;
   id: string;
@@ -54,7 +59,12 @@ export interface TouristRes {
   tourist_location: string;
   tourist_name: string;
 }
+export interface UpdateTouristReq {
+  id: string;
+  data: CreateTouristReq;
+}
 
 type CreateTourist = (data: CreateTouristReq) => Promise<TouristRes>;
+type UpdateTourist = (args: UpdateTouristReq) => Promise<TouristRes>;
 type FetchTourist = (id: string) => Promise<TouristRes>;
 type DeleteTourist = (id: string) => Promise<TouristRes>;

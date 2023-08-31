@@ -13,15 +13,22 @@ export const createTourist: CreateTourist = async (data) => {
   return res.data;
 };
 
+export const getTourist: FetchTourist = async (id) => {
+  const res = await axiosx(true).get(`${url}/${id}`);
+  return res.data;
+};
+
+export const deleteTourist: DeleteTourist = async (id: string) => {
+  const res = await axiosx(true).delete(`${url}/${id}`);
+  return res.data;
+};
+
 export interface TouristsList {
-  $id: string;
   createdat: string;
   id: string;
   tourist_email: string;
-
   tourist_location: string;
   tourist_name: string;
-  id_tourist: string;
 }
 
 export interface TouristListResponse {
@@ -38,7 +45,7 @@ export interface CreateTouristReq {
   tourist_location: string;
 }
 
-export interface CreateTouirstRes {
+export interface TouristRes {
   $id: string;
   createdat: string;
   id: string;
@@ -48,4 +55,6 @@ export interface CreateTouirstRes {
   tourist_name: string;
 }
 
-type CreateTourist = (data: CreateTouristReq) => Promise<CreateTouirstRes>;
+type CreateTourist = (data: CreateTouristReq) => Promise<TouristRes>;
+type FetchTourist = (id: string) => Promise<TouristRes>;
+type DeleteTourist = (id: string) => Promise<TouristRes>;

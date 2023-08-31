@@ -16,17 +16,17 @@ export default function Page() {
   const [data, setData] = useState<TouristTable[]>([]);
   const [refresh, setRefresh] = useState<boolean>(false);
   const [limit, setLimit] = useState<number>(10);
-  const router = useRouter();
   const [current, setCurrent] = useState<number>(1);
   const [res, setRes] = useState<TouristListResponse>();
   const [totals, setTotals] = useState<any>(0);
+  const router = useRouter();
 
   const getTourists = async () => {
     try {
       const res = await getTouristList(current);
       setRes(res);
     } catch (e: any) {
-      if (e.response.status) {
+      if (e.response.status === 401) {
         localStorage.clear();
         router.push('/');
       }
@@ -59,13 +59,21 @@ export default function Page() {
   useEffect(() => {
     setData([]);
     res?.data?.forEach((data) => {
-      setData((arr) => [...arr, createData(data?.tourist_name, data?.tourist_email, data?.id_tourist, data?.tourist_location)]);
+      setData((arr) => [...arr, createData(data?.tourist_name, data?.tourist_email, data?.id, data?.tourist_location)]);
     });
+
     setTotals(res?.total_pages);
   }, [res, refresh]);
 
-  const renderOption = () => {
-    return <Button>Detail</Button>;
+  const renderOption = (row: TouristTable) => {
+    const { id } = row;
+    return (
+      <div className="flex flex-row items-center gap-2">
+        <Button variant="outline" onClick={() => router.push(`/tourist/detail?id=${id}`)}>
+          Detail
+        </Button>
+      </div>
+    );
   };
   const renderNumber = (_: any, idx: number) => {
     return buildNumber(idx, limit, current);

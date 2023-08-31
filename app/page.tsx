@@ -17,12 +17,14 @@ export default function Home() {
 
   const handleLogin = async () => {
     const res = await postLogin(authData);
-    if (res?.message === 'success') {
-      localStorage.setItem('profile', JSON.stringify(res?.data));
-      localStorage.setItem('token', res?.data.Token);
-      router.push('/tourist');
-    } else {
-      localStorage.clear();
+    if (typeof window !== 'undefined') {
+      if (res?.message === 'success') {
+        localStorage.setItem('profile', JSON.stringify(res?.data));
+        localStorage.setItem('token', res?.data.Token);
+        router.push('/tourist');
+      } else {
+        localStorage.clear();
+      }
     }
   };
 

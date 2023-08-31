@@ -27,8 +27,10 @@ export default function Page() {
       setRes(res);
     } catch (e: any) {
       if (e.response.status === 401) {
-        router.push('/');
-        localStorage.clear();
+        if (typeof window !== 'undefined') {
+          router.push('/');
+          localStorage.clear();
+        }
       }
       throw e;
     }

@@ -38,7 +38,9 @@ export default function EditPage() {
           title: 'Erorr!',
           description: `${data.message}`
         });
-        localStorage.clear();
+        if (typeof window !== 'undefined') {
+          localStorage.clear();
+        }
       }
       throw e;
     }

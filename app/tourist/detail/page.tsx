@@ -42,7 +42,9 @@ export default function DetailPage() {
           title: 'Erorr!',
           description: `${data.message}`
         });
-        localStorage.clear();
+        if (typeof window !== 'undefined') {
+          localStorage.clear();
+        }
       }
     }
   };

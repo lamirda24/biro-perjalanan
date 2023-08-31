@@ -4,7 +4,7 @@ import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMe
 import { useRouter } from 'next/navigation';
 
 export const UserNav = () => {
-  const data = localStorage.getItem('profile');
+  const data = typeof window !== 'undefined' && localStorage.getItem('profile');
   const router = useRouter();
 
   const profile = useMemo(() => {
@@ -14,7 +14,9 @@ export const UserNav = () => {
 
   useEffect(() => {
     if (!profile) return;
-    localStorage.setItem('id', profile.Id);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('id', profile.Id);
+    }
   }, [profile]);
 
   return (

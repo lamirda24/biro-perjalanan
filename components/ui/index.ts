@@ -5,5 +5,5 @@ export * from './table';
 export * from './form';
 export * from './input';
 export * from './dialog';
-
+export * from './dropdown-menu';
 export * from './toaster';

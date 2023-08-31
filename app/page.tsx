@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { LoginRequest, postLogin } from "@/api/auth";
-import { Button, Card, CardContent, CardFooter, CardHeader, Input } from "@/components/ui";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { LoginRequest, postLogin } from '@/api/auth';
+import { Button, Card, CardContent, CardFooter, CardHeader, Input } from '@/components/ui';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 export default function Home() {
   const router = useRouter();
-  const [authData, setAuthData] = useState<LoginRequest>({ email: "", password: "" });
+  const [authData, setAuthData] = useState<LoginRequest>({ email: '', password: '' });
 
   const handleChangeInput = (e: any) => {
     const { name, value } = e.target;
@@ -17,10 +17,10 @@ export default function Home() {
 
   const handleLogin = async () => {
     const res = await postLogin(authData);
-    if (res?.message === "success") {
-      localStorage.setItem("profile", JSON.stringify(res?.data));
-      localStorage.setItem("token", res?.data.Token);
-      router.push("/tourist");
+    if (res?.message === 'success') {
+      localStorage.setItem('profile', JSON.stringify(res?.data));
+      localStorage.setItem('token', res?.data.Token);
+      router.push('/tourist');
     } else {
       localStorage.clear();
     }

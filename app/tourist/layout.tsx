@@ -1,15 +1,23 @@
 'use client';
 
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 import Link from 'next/link';
-import { Button, Toaster } from '@/components/ui';
-import { Sidebar } from 'lucide-react';
+import { Toaster } from '@/components/ui';
+import { UserNav } from '@/components/navbar/profile';
+import { Profile } from '@/api/user';
 
 export default function Layout({ children }: { children: ReactNode }) {
+  const [profile, setProfile] = useState<Profile>({});
+
   return (
     <div>
       <header className="border-b md:w-full h-20 flex items-center justify-start md:flex px-[20px]">
-        <h1>Tourlist List - Luthfi AM</h1>
+        <div className="flex flex-row w-full justify-between px-20">
+          <h1>Tourlist List - Luthfi AM</h1>
+          <div>
+            <UserNav />
+          </div>
+        </div>
       </header>
       <div className="flex-1 flex flex-col md:flex-row  h-screen">
         <aside className="border-b md:border-r border-secondary flex flex- justify-start items-start relative md:h-full">
@@ -19,6 +27,12 @@ export default function Layout({ children }: { children: ReactNode }) {
               className="hover:bg-gray-800 rounded-md hover:text-[#eee] transition-all duration-300 h-[40px] flex items-center justify-start px-4"
             >
               <p>Tourist List</p>
+            </Link>
+            <Link
+              href="/profile"
+              className="hover:bg-gray-800 rounded-md hover:text-[#eee] transition-all duration-300 h-[40px] flex items-center justify-start px-4"
+            >
+              <p>Profile</p>
             </Link>
           </div>
         </aside>

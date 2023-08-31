@@ -4,11 +4,8 @@ import React, { ReactNode, useState } from 'react';
 import Link from 'next/link';
 import { Toaster } from '@/components/ui';
 import { UserNav } from '@/components/navbar/profile';
-import { Profile } from '@/api/user';
 
 export default function Layout({ children }: { children: ReactNode }) {
-  const [profile, setProfile] = useState<Profile>({});
-
   return (
     <div>
       <header className="border-b md:w-full h-20 flex items-center justify-start md:flex px-[20px]">

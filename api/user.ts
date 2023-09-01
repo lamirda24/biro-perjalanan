@@ -1,7 +1,7 @@
 import { axiosx } from '@/lib/axios';
 import { mainApi } from './config';
 
-const url = `${mainApi}/api/user`;
+const url = `${mainApi}/api/users`;
 
 export const getProfile: FetchProfileData = async (id) => {
   const res = axiosx(true).get(`${url}/${id}`);

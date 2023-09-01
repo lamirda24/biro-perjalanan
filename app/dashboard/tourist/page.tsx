@@ -21,7 +21,7 @@ export default function Page() {
   const [res, setRes] = useState<TouristListResponse>();
   const [totals, setTotals] = useState<any>(0);
   const router = useRouter();
-  const { resetToken } = useProfile();
+  const { profile, resetToken } = useProfile();
 
   const getTourists = async () => {
     try {
@@ -29,7 +29,6 @@ export default function Page() {
       setRes(res);
     } catch (e: any) {
       if (e.response.status === 401) {
-        router.push('/');
         resetToken();
       }
       throw e;

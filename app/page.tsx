@@ -5,12 +5,12 @@ import { Button, Card, CardContent, CardFooter, CardHeader, Input } from '@/comp
 import { useProfile } from '@/hooks/useToken';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
   const router = useRouter();
   const [authData, setAuthData] = useState<LoginRequest>({ email: '', password: '' });
-  const { setProfile } = useProfile();
+  const { profile, setProfile, resetToken } = useProfile();
 
   const handleChangeInput = (e: any) => {
     const { name, value } = e.target;
@@ -26,6 +26,9 @@ export default function Home() {
       localStorage.clear();
     }
   };
+  useEffect(() => {
+    if (profile.token) router.push('/dashboard/tourist');
+  }, [profile]);
 
   return (
     <main className="flex h-screen flex-col items-center justify-center md:p-[24px] md:m-auto gap-4">

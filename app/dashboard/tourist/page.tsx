@@ -7,6 +7,7 @@ import { TableCardFooter, TableCardHeader, TableContent as TableContentTourist, 
 import { TouristTable } from './_types';
 import { TouristListResponse, getTouristList } from '@/api/tourist';
 import { useRouter } from 'next/navigation';
+import { useProfile } from '@/hooks/useToken';
 
 function createData(name: string, email: string, id: string, location: string): TouristTable {
   return { name, email, id, location };
@@ -20,6 +21,7 @@ export default function Page() {
   const [res, setRes] = useState<TouristListResponse>();
   const [totals, setTotals] = useState<any>(0);
   const router = useRouter();
+  const { resetToken } = useProfile();
 
   const getTourists = async () => {
     try {
@@ -27,10 +29,8 @@ export default function Page() {
       setRes(res);
     } catch (e: any) {
       if (e.response.status === 401) {
-        if (typeof window !== 'undefined') {
-          router.push('/');
-          localStorage.clear();
-        }
+        router.push('/');
+        resetToken();
       }
       throw e;
     }

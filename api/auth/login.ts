@@ -1,5 +1,5 @@
-import axios from "axios";
-import { mainApi } from "../config";
+import axios from 'axios';
+import { mainApi } from '../config';
 
 const url = `${mainApi}/api/authaccount/login`;
 
@@ -21,8 +21,8 @@ export interface LoginResponse {
 
 export interface ProfileData {
   Id: string;
-  name: string;
-  email: string;
+  Name: string;
+  Email: string;
   Token: string;
 }
 

@@ -1,30 +1,25 @@
 'use client';
-import { useEffect, useMemo } from 'react';
-import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui';
+import { useCallback } from 'react';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui';
 import { useRouter } from 'next/navigation';
+import { useProfile } from '@/hooks/useToken';
 
 export const UserNav = () => {
-  const data = typeof window !== 'undefined' && localStorage.getItem('profile');
   const router = useRouter();
 
-  const profile = useMemo(() => {
-    if (!data) return false;
-    return JSON.parse(data);
-  }, [data]);
+  const { profile, resetToken } = useProfile();
 
-  useEffect(() => {
-    if (!profile) return;
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('id', profile.Id);
-    }
-  }, [profile]);
+  const onLogout = useCallback(() => {
+    resetToken();
+    router.push('/');
+  }, [router, resetToken]);
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>{profile?.Name}</DropdownMenuTrigger>
+      <DropdownMenuTrigger>{profile?.name}</DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem onClick={() => router.push('/profile')}>Profile</DropdownMenuItem>
-        <DropdownMenuItem>Logout</DropdownMenuItem>
+        <DropdownMenuItem onClick={onLogout}>Logout</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

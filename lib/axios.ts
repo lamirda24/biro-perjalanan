@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const axiosx = (auth?: boolean) => {
   const instance = axios.create();
@@ -23,6 +23,6 @@ export const axiosx = (auth?: boolean) => {
 };
 
 const getToken = () => {
-  const token = localStorage.getItem("token") ?? "";
+  const token = localStorage.getItem('token') ?? {};
   return token;
 };
